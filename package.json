@@ -1,0 +1,26 @@
+{
+  "name": "jastip-china-desk",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Jastip China Desk: shared tracker for buying from China (Taobao/1688) through jastippers to Jakarta.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node --test tests/*.test.js",
+    "test:rls": "bash scripts/test-rls.sh"
+  },
+  "dependencies": {
+    "@fontsource-variable/archivo": "^5.1.0",
+    "@fontsource/ibm-plex-mono": "^5.1.0",
+    "@fontsource/ibm-plex-sans": "^5.1.0",
+    "@supabase/supabase-js": "^2.45.0"
+  },
+  "devDependencies": {
+    "vite": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

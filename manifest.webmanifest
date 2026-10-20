@@ -1,0 +1,9 @@
+{
+  "name": "Jastip China Desk",
+  "short_name": "Jastip Desk",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#EEF1F0",
+  "theme_color": "#0B7A63",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

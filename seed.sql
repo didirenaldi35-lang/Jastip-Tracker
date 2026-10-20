@@ -1,0 +1,1 @@
+-- Intentionally empty: the desk starts with no data.

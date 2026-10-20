@@ -1,0 +1,36 @@
+# OPTIONAL. Deploys to Cloudflare Pages from GitHub Actions.
+# Skip this file's setup if you connect the repo to Cloudflare Pages directly
+# (README, step 3, option A). It stays dormant until you add the repo variable
+# CF_PAGES_PROJECT (Settings -> Secrets and variables -> Actions -> Variables).
+name: Deploy to Cloudflare Pages
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    if: ${{ vars.CF_PAGES_PROJECT != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - run: npm run build
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
+          VITE_ENV_LABEL: ${{ vars.VITE_ENV_LABEL }}
+          VITE_ENABLE_GOOGLE: ${{ vars.VITE_ENABLE_GOOGLE }}
+          VITE_PUBLIC_MODE: ${{ vars.VITE_PUBLIC_MODE }}
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ vars.CF_PAGES_PROJECT }} --branch=${{ github.ref_name }}
